@@ -1,4 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  mount,
+  shallow,
+} from 'enzyme';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 import configureStore from 'redux-mock-store';
@@ -24,3 +29,21 @@ export function createComponentWithStore(children, initialState = {}) {
 
   return { component, store };
 }
+
+export function shallowWithStore(node, initialState) {
+  const store = getStoreWithInitialState(initialState);
+  return shallow(node, { context: { store } });
+}
+
+export function mountWithStore(node, initialState) {
+  const store = getStoreWithInitialState(initialState);
+  return mount(node, {
+    context: { store },
+    childContextTypes: { store: PropTypes.object.isRequired },
+  });
+}
+
+function nodeWithStoreProp(node, store) {
+  return React.cloneElement(node);
+}
+
