@@ -43,7 +43,3 @@ export function mountWithStore(node, initialState) {
   });
 }
 
-function nodeWithStoreProp(node, store) {
-  return React.cloneElement(node);
-}
-
