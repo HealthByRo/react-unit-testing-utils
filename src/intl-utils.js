@@ -1,6 +1,11 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import { IntlProvider, intlShape } from 'react-intl';
+import {
+  shallow,
+  mount } from 'enzyme';
+import {
+  IntlProvider,
+  intlShape,
+} from 'react-intl';
 import { createComponentWithStore } from './';
 
 const intlProvider = new IntlProvider({ locale: 'en' }, {});
