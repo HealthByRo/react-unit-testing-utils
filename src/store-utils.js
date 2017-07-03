@@ -13,8 +13,7 @@ export function findActionByType(store, actionType) {
   return store.getActions().find((action) => action.type === actionType);
 }
 
-export function getStoreWithInitialState(initialState) {
-  const middlewares = [];
+export function getStoreWithInitialState(initialState, middlewares = []) {
   const mockStore = configureStore(middlewares);
   return mockStore(fromJS(initialState));
 }
