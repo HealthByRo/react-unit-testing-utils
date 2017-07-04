@@ -7,12 +7,7 @@ import {
   Router,
   browserHistory,
 } from 'react-router';
-import { combineReducers } from 'redux-immutable';
 import createMemoryHistory from 'react-router/lib/createMemoryHistory';
-import {
-  createStore,
-  applyMiddleware,
-} from 'redux';
 import {
   syncHistoryWithStore,
   routerMiddleware,
@@ -20,16 +15,7 @@ import {
 } from 'react-router-redux';
 import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
-
-const getFakeReducersBasedOnInitialState = (initialState) => {
-  const fakeReducers = {};
-
-  Object.keys(initialState).forEach((key) => {
-    fakeReducers[key] = (state) => state || fromJS(initialState[key]);
-  });
-
-  return fakeReducers;
-};
+import { configureStore } from './';
 
 const routeInitialState = fromJS({
   locationBeforeTransitions: null,
@@ -65,15 +51,11 @@ const makeSelectLocationState = () => {
 export const createTestWithRoutes = (routes, initialState) => {
   const baseHistory = createMemoryHistory();
   const middleware = routerMiddleware(baseHistory);
-  const rootReducer = combineReducers({
-    ...getFakeReducersBasedOnInitialState(initialState),
-    route: routeReducer,
-  });
 
-  const store = createStore(
-    rootReducer,
-    fromJS(initialState),
-    applyMiddleware(middleware)
+  const store = configureStore(
+    initialState,
+    { route: routeReducer },
+    [middleware]
   );
 
   const history = syncHistoryWithStore(browserHistory, store, {
