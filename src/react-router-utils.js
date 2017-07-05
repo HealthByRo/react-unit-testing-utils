@@ -91,21 +91,21 @@ App.propTypes = {
 
 const HomePage = () => <h1>Home page</h1>;
 
-export const fixComponent = (component) => {
-  if (typeof component !== 'function') {
-    return () => component;
+export const nodeToComponent = (nodeOrComponent) => {
+  if (typeof nodeOrComponent !== 'function') {
+    return () => nodeOrComponent;
   }
 
-  return component;
+  return nodeOrComponent;
 };
 
-export const createComponentWithRouter = (component, initialState) => {
-  const fixedComponent = fixComponent(component);
+export const createComponentWithRouter = (nodeOrComponent, initialState) => {
+  const component = nodeToComponent(nodeOrComponent);
 
   const routes = (
     <Route component={App} >
       <Route path="/" component={HomePage} />
-      <Route path="/test-page" component={fixedComponent} />
+      <Route path="/test-page" component={component} />
     </Route>
   );
 

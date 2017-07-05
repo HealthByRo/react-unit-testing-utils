@@ -11,11 +11,11 @@ import { createComponentWithStore } from './';
 const intlProvider = new IntlProvider({ locale: 'en' }, {});
 const { intl } = intlProvider.getChildContext();
 
-export function shallowWithIntl(node, context) {
+export function shallowWithIntl(node, context = {}) {
   return shallow(nodeWithIntlProp(node), { context: { intl, ...context } });
 }
 
-export function mountWithIntl(node, context) {
+export function mountWithIntl(node, context = {}) {
   return mount(nodeWithIntlProp(node), {
     context: { intl, ...context },
     childContextTypes: { intl: intlShape },
@@ -26,10 +26,10 @@ function nodeWithIntlProp(node) {
   return React.cloneElement(node, { intl });
 }
 
-export function createComponentWithIntl(children, initialState = {}) {
+export function createComponentWithIntl(node, initialState = {}) {
   return createComponentWithStore(
     <IntlProvider locale="en">
-      {children}
+      {node}
     </IntlProvider>
   , initialState);
 }

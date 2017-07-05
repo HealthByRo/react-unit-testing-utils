@@ -26,6 +26,7 @@ const logger = () => (next) => (action) => {
 
 export function configureStore(initialState, reducers = {}, middlewares = []) {
   const rootReducer = combineReducers({
+    global: (state) => state || {},
     ...getFakeReducersBasedOnInitialState(initialState),
     ...reducers,
   });
