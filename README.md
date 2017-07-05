@@ -56,7 +56,7 @@ By default your container is added to route under url a `/test-page ` and the ur
 
 If you want to define your own routes you need to use `createTestWithRoutes(routes, initialState)` and open url explicit:
 
-```js
+```jsx
 import React from 'react';
 import { createTestWithRoutes } from 'react-unit-testing-utils';
 import SignInPage from './index';
@@ -240,4 +240,4 @@ const initalState = {
 }; 
 
 const store = configureStore(initalState);
-
+```
