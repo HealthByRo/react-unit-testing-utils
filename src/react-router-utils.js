@@ -1,95 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 import {
+  MemoryRouter,
   Route,
-  Router,
-  browserHistory,
-} from 'react-router';
-import createMemoryHistory from 'react-router/lib/createMemoryHistory';
-import {
-  syncHistoryWithStore,
-  routerMiddleware,
-  LOCATION_CHANGE,
-} from 'react-router-redux';
+} from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
 import { configureStore } from './';
 
-const routeInitialState = fromJS({
-  locationBeforeTransitions: null,
-});
-
-const routeReducer = (state = routeInitialState, action) => {
-  switch (action.type) {
-    case LOCATION_CHANGE:
-      return state.merge({
-        locationBeforeTransitions: action.payload,
-      });
-    default:
-      return state;
-  }
-};
-
-const makeSelectLocationState = () => {
-  let prevRoutingState;
-  let prevRoutingStateJS;
-
-  return (state) => {
-    const routingState = state.get('route');
-
-    if (!routingState.equals(prevRoutingState)) {
-      prevRoutingState = routingState;
-      prevRoutingStateJS = routingState.toJS();
-    }
-
-    return prevRoutingStateJS;
-  };
-};
-
 export const createTestWithRoutes = (routes, initialState) => {
-  const baseHistory = createMemoryHistory();
-  const middleware = routerMiddleware(baseHistory);
-
   const store = configureStore(
     initialState,
-    { route: routeReducer },
-    [middleware]
   );
-
-  const history = syncHistoryWithStore(browserHistory, store, {
-    selectLocationState: makeSelectLocationState(),
-  });
 
   const wrapper = renderer.create(
     <Provider store={store}>
       <IntlProvider locale="en">
-        <Router history={history} >
+        <MemoryRouter initialEntries={['/']}>
           {routes}
-        </Router>
+        </MemoryRouter>
       </IntlProvider>
     </Provider>
   );
 
   return {
-    history,
     store,
     wrapper,
   };
 };
-
-const App = (props) => (
-  <main>
-    {props.children}
-  </main>
-);
-
-App.propTypes = {
-  children: PropTypes.node,
-};
-
-const HomePage = () => <h1>Home page</h1>;
 
 export const nodeToComponent = (nodeOrComponent) => {
   if (typeof nodeOrComponent !== 'function') {
@@ -101,17 +40,28 @@ export const nodeToComponent = (nodeOrComponent) => {
 
 export const createComponentWithRouter = (nodeOrComponent, initialState) => {
   const component = nodeToComponent(nodeOrComponent);
+  let push = null;
+
+  const HomePage = ({ history }) => {
+    push = history.push;
+
+    return <h1>Home page</h1>;
+  };
+
+  HomePage.propTypes = {
+    history: PropTypes.object.isRequired,
+  };
 
   const routes = (
-    <Route component={App} >
-      <Route path="/" component={HomePage} />
+    <main>
+      <Route exact path="/" component={HomePage} />
       <Route path="/test-page" component={component} />
-    </Route>
+    </main>
   );
 
   const result = createTestWithRoutes(routes, initialState);
 
-  result.history.push('/test-page');
+  push('/test-page');
 
   return result;
 };

@@ -31,5 +31,6 @@ export function createComponentWithIntl(node, initialState = {}) {
     <IntlProvider locale="en">
       {node}
     </IntlProvider>
-  , initialState);
+    , initialState
+  );
 }
