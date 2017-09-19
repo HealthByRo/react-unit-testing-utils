@@ -60,6 +60,7 @@ export const createComponentWithRouter = (nodeOrComponent, initialState) => {
   );
 
   const result = createTestWithRoutes(routes, initialState);
+  result.history = { push };
 
   push('/test-page');
 
