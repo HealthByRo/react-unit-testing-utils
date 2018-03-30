@@ -79,15 +79,22 @@ export function shallowWithStore(children, initialState = {}) {
       {children}
     </Provider>
   );
+  const result = shallow(node);
 
-  return shallow(node);
+  result.store = store;
+
+  return result;
 }
 
 export function mountWithStore(node, initialState) {
   const store = configureStore(initialState);
-  return mount(node, {
+  const result = mount(node, {
     context: { store },
     childContextTypes: { store: PropTypes.object.isRequired },
   });
+
+  result.store = store;
+
+  return result;
 }
 
