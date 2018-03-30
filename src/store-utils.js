@@ -40,6 +40,10 @@ export function configureStore(initialState, reducers = {}, middlewares = []) {
   );
 
   store.getActions = () => actions;
+  store.runSaga = () => {};
+  store.asyncReducers = {};
+  store.injectedReducers = {};
+  store.injectedSagas = {};
 
   return store;
 }
@@ -68,9 +72,15 @@ export function createComponentWithStore(children, initialState = {}) {
   return { component, store };
 }
 
-export function shallowWithStore(node, initialState) {
+export function shallowWithStore(children, initialState = {}) {
   const store = configureStore(initialState);
-  return shallow(node, { context: { store } });
+  const node = (
+    <Provider store={store}>
+      {children}
+    </Provider>
+  );
+
+  return shallow(node);
 }
 
 export function mountWithStore(node, initialState) {

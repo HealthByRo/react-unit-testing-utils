@@ -1,7 +1,8 @@
 import React from 'react';
 import {
   shallow,
-  mount } from 'enzyme';
+  mount,
+} from 'enzyme';
 import {
   IntlProvider,
   intlShape,
