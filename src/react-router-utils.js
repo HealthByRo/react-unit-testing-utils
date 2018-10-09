@@ -5,7 +5,6 @@ import {
   MemoryRouter,
   Route,
 } from 'react-router-dom';
-import { IntlProvider } from 'react-intl';
 import renderer from 'react-test-renderer';
 import { configureStore } from './';
 
@@ -16,11 +15,9 @@ export const createTestWithRoutes = (routes, initialState) => {
 
   const wrapper = renderer.create(
     <Provider store={store}>
-      <IntlProvider locale="en">
-        <MemoryRouter initialEntries={['/']}>
-          {routes}
-        </MemoryRouter>
-      </IntlProvider>
+      <MemoryRouter initialEntries={['/']}>
+        {routes}
+      </MemoryRouter>
     </Provider>
   );
 
