@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/arabellatech/react-unit-testing-utils.git"
+    "url": "git+ssh://git@bitbucket.org/healthbyro/react-unit-testing-utils.git"
   },
   "keywords": [
     "react",
@@ -15,7 +15,7 @@
   ],
   "author": "Andrzej Dybionka",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/arabellatech/react-unit-testing-utils#readme",
+  "homepage": "https://bitbucket.org/healthbyro/react-unit-testing-utils#readme",
   "scripts": {
     "build": "rm -rf lib && babel --presets es2015,stage-0 -d lib/ src/",
     "test": "echo \"Error: no test specified\" && exit 1",
