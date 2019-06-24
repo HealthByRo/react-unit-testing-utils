@@ -6,7 +6,7 @@ react-unit-testing-utils is a module with a set of useful functions to test reac
 
 
 ## Installation
-`yarn add https://bitbucket.org/arabellatech/react-unit-testing-utils`
+`yarn add https://github.com/HealthByRo/react-unit-testing-utils`
 
 ## Usage
 ### createComponentWithIntl(node, initialState = {})

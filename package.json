@@ -1,12 +1,9 @@
 {
   "name": "react-unit-testing-utils",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "React unit testing utils",
   "main": "lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+ssh://git@bitbucket.org/healthbyro/react-unit-testing-utils.git"
-  },
+  "repository": "github:HealthByRo/react-unit-testing-utils",
   "keywords": [
     "react",
     "unit",
@@ -15,7 +12,7 @@
   ],
   "author": "Andrzej Dybionka",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/healthbyro/react-unit-testing-utils#readme",
+  "homepage": "https://github.com/HealthByRo/react-unit-testing-utils/",
   "scripts": {
     "build": "rm -rf lib && babel --presets es2015,stage-0 -d lib/ src/",
     "test": "echo \"Error: no test specified\" && exit 1",
