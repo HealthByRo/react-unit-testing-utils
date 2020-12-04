@@ -1,6 +1,6 @@
 {
   "name": "react-unit-testing-utils",
-  "version": "3.2.3",
+  "version": "3.2.4",
   "description": "React unit testing utils",
   "main": "lib/index.js",
   "repository": "github:HealthByRo/react-unit-testing-utils",
